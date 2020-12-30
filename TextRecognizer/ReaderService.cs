@@ -28,8 +28,11 @@ namespace TextRecognizer
         {
             await AddFilesToQueue();
 
-            var tasks = Enumerable.Range(0, 10).Select(async _ => await RecognizeNext()).ToList();
-            await Task.WhenAll(tasks);
+            var a = Enumerable.Range(0, 3)
+                .Select(_ =>Task.Run(RecognizeNext))
+                .ToList();
+
+            await Task.WhenAll(a);
         }
 
         private async Task AddFilesToQueue()
